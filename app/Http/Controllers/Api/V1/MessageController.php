@@ -29,7 +29,7 @@ class MessageController extends Controller
 
         $page = DB::transaction(function () use ($conversation, $limit, $before) {
             $rev = (int) Conversation::whereKey($conversation->id)->sharedLock()->value('rev');
-            $query = $conversation->messages()->orderByDesc('seq')->limit($limit + 1);
+            $query = $conversation->messages()->with('author')->orderByDesc('seq')->limit($limit + 1);
             if ($before !== null) {
                 $query->where('seq', '<', (int) $before);
             }

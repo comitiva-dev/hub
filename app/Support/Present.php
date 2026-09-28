@@ -152,6 +152,9 @@ final class Present
             'seq' => $message->seq,
             'createdAt' => Iso::date($message->created_at),
             'error' => $message->error,
+            'author' => $message->author_id === null || $message->author === null
+                ? null
+                : ['id' => $message->author->id, 'name' => $message->author->name],
         ];
     }
 

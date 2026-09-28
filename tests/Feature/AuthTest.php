@@ -5,10 +5,11 @@ use App\Models\User;
 it('describes itself without auth', function () {
     $response = $this->getJson('/api/v1/meta')->assertOk();
     expectContract($response, 'HubMeta');
+    $pinned = json_decode(file_get_contents(resource_path('contract/VERSION')), true)['tag'];
     expect($response->json())->toMatchArray([
         'apiVersion' => 1,
         'edition' => 'community',
-        'contractVersion' => 'contract-v0.2.0',
+        'contractVersion' => $pinned,
     ]);
     expect($response->json('capabilities'))->toBe(['execution' => false, 'registration' => 'open']);
 });

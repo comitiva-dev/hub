@@ -58,6 +58,8 @@ it('starts a turn: stores the message and an empty reply, takes the lock, return
     expectContract($response, 'HubRunStartResult');
     expect($response->json())->toMatchArray(['runId' => $runId, 'leaseSeconds' => 30]);
     expect($response->json('userMessage'))->toMatchArray(['seq' => 3, 'role' => 'user', 'status' => 'complete']);
+    expect($response->json('userMessage.author'))->toBe(['id' => $ana->id, 'name' => 'Ana']);
+    expect($response->json('reply.author'))->toBe(['id' => $ana->id, 'name' => 'Ana']);
     expect($response->json('reply'))->toMatchArray(['seq' => 4, 'role' => 'assistant', 'status' => 'streaming', 'content' => []]);
     expect(array_column($response->json('history'), 'seq'))->toBe([1, 2, 3]);
     expect($response->json('conversation'))->toMatchArray(['status' => 'running', 'title' => 'Hello there']);

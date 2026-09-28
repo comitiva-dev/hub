@@ -133,7 +133,7 @@ class RunLedger
             ]);
             $this->conversationUpdated($conversation);
 
-            $history = $conversation->messages()->where('seq', '<', $reply->seq)->orderBy('seq')->get();
+            $history = $conversation->messages()->with('author')->where('seq', '<', $reply->seq)->orderBy('seq')->get();
 
             return [
                 'runId' => $run->id,
