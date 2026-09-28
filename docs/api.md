@@ -55,6 +55,7 @@ Codes come from the contract's `ErrorCode`. The usual ones: `invalid_request` (4
 |---|---|---|
 | GET | `/workspaces/{ws}/conversations?agentId=&archived=` | → `HubConversationSummary[]`, newest activity first, `unread` per caller |
 | POST | `/workspaces/{ws}/conversations` | `HubConversationDraft` → `Conversation` |
+| GET | `/conversations/{id}` | → `HubConversationSummary` |
 | PATCH | `/conversations/{id}` | `HubConversationPatch` → `Conversation`. `titleSource: auto` replaces only the placeholder title |
 | POST | `/conversations/{id}/read` | → 204 |
 | GET | `/conversations/{id}/messages?beforeSeq=&limit=` | → `MessagePage` (oldest first, at the conversation's `rev`) |

@@ -48,6 +48,19 @@ class ConversationController extends Controller
         )->values());
     }
 
+    /** One conversation (HubConversationSummary): what a desktop needs to run it. */
+    public function show(Request $request, Conversation $conversation): JsonResponse
+    {
+        $user = $this->conversationMembership($request, $conversation)->user_id;
+        $read = (int) DB::table('conversation_reads')
+            ->where('conversation_id', $conversation->id)->where('user_id', $user)->value('last_read_seq');
+        $unread = $conversation->messages()
+            ->where('role', 'assistant')->whereIn('status', ['complete', 'cancelled', 'error'])
+            ->where('seq', '>', $read)->count();
+
+        return response()->json(Present::summary($conversation->load('activeRun.user'), $unread));
+    }
+
     public function store(Request $request, Workspace $workspace): JsonResponse
     {
         $user = $this->user($request);

@@ -42,6 +42,19 @@ it('lists newest first with unread replies per member and filters by agent and a
     expect($this->getJson("/api/v1/workspaces/{$ws->id}/conversations?archived=true")->json())->toHaveCount(1);
 });
 
+it('shows one conversation with its runner and unread count', function () {
+    $ana = user('Ana');
+    $ws = workspace($ana);
+    $c = conversationIn($ws);
+    messageIn($c, 1, 'user', 'Hi');
+    messageIn($c, 2, 'assistant', 'Hello');
+    actingAsToken($ana);
+    expectContract($this->getJson("/api/v1/conversations/{$c->id}")->assertOk(), 'HubConversationSummary')
+        ->assertJsonPath('unread', 1)->assertJsonPath('runner', null)->assertJsonPath('conversation.agentId', $c->agent_id);
+    actingAsToken(user('Eve'));
+    expectError($this->getJson("/api/v1/conversations/{$c->id}"), 404, 'not_found');
+});
+
 it('renames, lets a generated title replace only the placeholder, and archives', function () {
     $ana = user('Ana');
     $ws = workspace($ana);

@@ -58,6 +58,7 @@ Route::prefix('v1')->group(function () {
 
         Route::get('workspaces/{workspace}/conversations', [ConversationController::class, 'index']);
         Route::post('workspaces/{workspace}/conversations', [ConversationController::class, 'store']);
+        Route::get('conversations/{conversation}', [ConversationController::class, 'show']);
         Route::patch('conversations/{conversation}', [ConversationController::class, 'update']);
         Route::post('conversations/{conversation}/read', [ConversationController::class, 'read']);
         Route::post('conversations/{conversation}/cancel', [ConversationController::class, 'cancel']);
