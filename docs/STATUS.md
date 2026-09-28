@@ -24,10 +24,11 @@ Work inside the hub. Phases, their exit criteria and the desktop side are tracke
 
 | Check | Result |
 |---|---|
-| `php artisan test` (Postgres) | 46 passed, 1 skipped (the sibling-clone `contract:check` inside the container; run on the host instead). Every response checked is validated against its schema, and every broadcast against `HubEvent`. |
+| `php artisan test` (Postgres) | 47 passed, 1 skipped (the sibling-clone `contract:check` inside the container; run on the host instead). Every response checked is validated against its schema, and every broadcast against `HubEvent`. |
 | `pint --test`, `phpstan` (level 6) | Clean. |
 | `contract:check --from=../comitiva` | Matches `contract-v0.3.0`. |
 | Production image | Built; migrated an empty database on start; `/api/v1/meta` and a registration answered. |
+| comitiva's `test:e2e:hub` | Two Comitiva desktops against this image (Postgres, Reverb, scheduler): sign-up, a workspace, an invitation link, presence, a shared agent linked to each member's connection, and each member's reply streaming live to the other. Passed. |
 
 ### Open
 
