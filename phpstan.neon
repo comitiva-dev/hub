@@ -1,0 +1,12 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - app
+        - routes
+        - database
+    level: 6
+    # Sanctum documents currentAccessToken() as PersonalAccessToken; a session
+    # request gets a TransientToken at runtime, which the code checks for.
+    treatPhpDocTypesAsCertain: false

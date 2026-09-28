@@ -1,0 +1,67 @@
+# Development: `docker compose up -d`, then `docker compose exec app composer install`
+# on the first run. The hub answers on http://localhost:8810, Reverb on ws://localhost:8811.
+# Tests: `docker compose exec app php artisan test` (database hub_test).
+
+x-hub: &hub
+  build:
+    context: .
+    target: dev
+  image: comitiva-hub:dev
+  volumes:
+    - .:/app
+  environment: &hub-env
+    APP_ENV: local
+    APP_DEBUG: "true"
+    APP_URL: http://localhost:${HUB_PORT:-8810}
+    DB_CONNECTION: pgsql
+    DB_HOST: postgres
+    DB_PORT: 5432
+    DB_DATABASE: hub
+    DB_USERNAME: hub
+    DB_PASSWORD: hub
+    BROADCAST_CONNECTION: reverb
+    REVERB_HOST: reverb
+    REVERB_PORT: 8080
+    REVERB_SCHEME: http
+    HUB_REALTIME_HOST: localhost
+    HUB_REALTIME_PORT: ${HUB_REVERB_PORT:-8811}
+    HUB_REALTIME_SCHEME: http
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: hub
+      POSTGRES_USER: hub
+      POSTGRES_PASSWORD: hub
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "54320:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "hub", "-d", "hub"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  app:
+    <<: *hub
+    ports:
+      - "${HUB_PORT:-8810}:80"
+
+  reverb:
+    <<: *hub
+    command: ["php", "artisan", "reverb:start", "--host=0.0.0.0", "--port=8080"]
+    ports:
+      - "${HUB_REVERB_PORT:-8811}:8080"
+
+  scheduler:
+    <<: *hub
+    command: ["php", "artisan", "schedule:work"]
+
+volumes:
+  pgdata:
