@@ -40,9 +40,6 @@ jobs:
           DB_HOST: 127.0.0.1
       - name: The contract copy matches its pinned comitiva tag (ADR 0016)
         run: php artisan contract:check
-        env:
-          # Until comitiva is public, a read token for it.
-          COMITIVA_REPOSITORY: https://x-access-token:${{ secrets.COMITIVA_READ_TOKEN || github.token }}@github.com/comitiva-dev/comitiva.git
 
   image:
     needs: checks
