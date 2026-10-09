@@ -1,8 +1,8 @@
 # Comitiva hub
 
-The Laravel hub of Comitiva, community edition (AGPL-3.0). Teams share agents and conversations
+The Laravel hub of Comitiva, community edition (Apache-2.0). Teams share agents and conversations
 through it in real time. In Phase 8 it is a **sync hub**: desktops execute runs and publish them;
-the hub stores, orders and broadcasts. Why and how: comitiva's `docs/adr/0015`, `0016`, `0017`.
+the hub stores, orders and broadcasts. Why and how: comitiva's `docs/adr/0015`, `0016`, `0017`, `0018`.
 
 ## Read first
 

@@ -10,7 +10,7 @@ Work inside the hub. Phases, their exit criteria and the desktop side are tracke
 - Laravel 13 with Sanctum (device tokens and web sessions), Reverb, Postgres and Pest. Docker
   Compose for development; a single production image (FrankenPHP) whose role is picked by the
   command.
-- AGPL-3.0 `LICENSE`, a placeholder `CLA.md` pending legal review, and a CI workflow (Pint,
+- Apache-2.0 `LICENSE` (comitiva's ADR 0018: no CLA), and a CI workflow (Pint,
   Larastan, Pest on Postgres, `contract:check`, image to `ghcr.io/comitiva-dev/hub`). The
   repository is public at `github.com/comitiva-dev/hub`.
 - The contract copy: `contract:sync` and `contract:check` read `contract-v*` tags of comitiva
@@ -35,8 +35,6 @@ Work inside the hub. Phases, their exit criteria and the desktop side are tracke
 
 - The `ghcr.io/comitiva-dev/hub` package is private (GitHub's default for a new package), so the
   README's `docker run` needs a login. Make it public in the package settings.
-- CLA Assistant is not installed, and AGPL-3.0 and the CLA text need legal review, both before the
-  first outside contribution.
 - Attachments are stored on the local disk. S3 works through `HUB_ATTACHMENTS_DISK` but has not
   been tried.
 - No mail: invitations are links to copy.

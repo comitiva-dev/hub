@@ -10,7 +10,7 @@
         "chat",
         "laravel"
     ],
-    "license": "AGPL-3.0-only",
+    "license": "Apache-2.0",
     "require": {
         "php": "^8.3",
         "laravel/framework": "^13.17",

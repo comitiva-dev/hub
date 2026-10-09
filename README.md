@@ -2,7 +2,7 @@
 
 The hub lets a team share agents and conversations in [Comitiva](https://comitiva.dev) and see
 each other's replies stream in real time. This is the **community edition**: open source
-(AGPL-3.0) and self-hostable. The official hosted hub runs at `app.comitiva.dev`.
+(Apache-2.0) and self-hostable. The official hosted hub runs at `app.comitiva.dev`.
 
 In this version the hub is a **sync hub**. It stores shared workspaces and fans out events. It
 does not call LLMs itself: a member's desktop runs each turn with that member's own connection
@@ -67,5 +67,5 @@ Schemas, taken from a pinned `contract-v*` tag, in `resources/contract`
 
 ## License
 
-AGPL-3.0-only (see [LICENSE](LICENSE)). If you run a modified hub as a service, you must offer its
-source to its users. Contributions are accepted under a CLA ([CLA.md](CLA.md)).
+Apache-2.0 (see [LICENSE](LICENSE)), like the rest of Comitiva. Contributions are accepted under
+the same license, with no CLA (comitiva's ADR 0018).
