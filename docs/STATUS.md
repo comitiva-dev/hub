@@ -28,13 +28,11 @@ Work inside the hub. Phases, their exit criteria and the desktop side are tracke
 | `pint --test`, `phpstan` (level 6) | Clean. |
 | `contract:check --from=../comitiva` | Matches `contract-v0.3.0`. |
 | Production image | Built; migrated an empty database on start; `/api/v1/meta` and a registration answered. |
-| CI on GitHub | Green on `main` (run 36454645560): checks, then the image pushed to `ghcr.io/comitiva-dev/hub` (`main` and `sha-…` tags). The first run failed `contract:check` because the `contract-v*` tags were not pushed yet. |
+| CI on GitHub | Green on `main` (run 36454645560): checks, then the image pushed to `ghcr.io/comitiva-dev/hub` (`main` and `sha-…` tags). The package is public: the README's `docker run` pulls it without a login. The first run failed `contract:check` because the `contract-v*` tags were not pushed yet. |
 | comitiva's `test:e2e:hub` | Two Comitiva desktops against this image (Postgres, Reverb, scheduler): sign-up, a workspace, an invitation link, presence, a shared agent linked to each member's connection, and each member's reply streaming live to the other. Passed. |
 
 ### Open
 
-- The `ghcr.io/comitiva-dev/hub` package is private (GitHub's default for a new package), so the
-  README's `docker run` needs a login. Make it public in the package settings.
 - Attachments are stored on the local disk. S3 works through `HUB_ATTACHMENTS_DISK` but has not
   been tried.
 - No mail: invitations are links to copy.
