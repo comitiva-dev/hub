@@ -31,6 +31,12 @@ Work inside the hub. Phases, their exit criteria and the desktop side are tracke
 | CI on GitHub | Green on `main` (run 36454645560): checks, then the image pushed to `ghcr.io/comitiva-dev/hub` (`main` and `sha-…` tags). The package is public: the README's `docker run` pulls it without a login. The first run failed `contract:check` because the `contract-v*` tags were not pushed yet. |
 | comitiva's `test:e2e:hub` | Two Comitiva desktops against this image (Postgres, Reverb, scheduler): sign-up, a workspace, an invitation link, presence, a shared agent linked to each member's connection, and each member's reply streaming live to the other. Passed. |
 
+### Released
+
+- `v0.1.0` (2026-10-19), with a GitHub release; it works with Comitiva 0.2.0 and later. The image
+  has the tags `0.1.0` and `latest` (before the tag there was no `latest`, so the README's untagged
+  `docker run` failed).
+
 ### Open
 
 - Attachments are stored on the local disk. S3 works through `HUB_ATTACHMENTS_DISK` but has not
